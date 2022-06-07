@@ -5,42 +5,19 @@ import cloud.wilbur.apachecamel.domain.payload.Event;
 import cloud.wilbur.apachecamel.domain.payload.Payload;
 import cloud.wilbur.apachecamel.domain.payload.Record;
 import org.apache.camel.Body;
-import org.apache.camel.Headers;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 @Component
 public class Bean extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("direct:decider").routeId("decider")
-                .choice()
-                    .when(body().isNull())
-                        .log("when 1")
-                        .setBody(constant("[]"))
-                    .when(body().contains("[]"))
-                        .log("when 2")
-                        .setBody(constant("[]"))
-                .otherwise()
-                        .log("when 3")
-                .endChoice();
-
         from("direct:clean-payload").routeId("clean-payload")
                 .bean(this, "cleanPayload")
                 .to("direct:decider");
-
-    }
-
-    public boolean decideStatus(@Body String body, @Headers Map<String, String> headers) {
-        if (body.contains("[]")) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public ArrayList<EventComplete> cleanPayload(@Body Payload payload) {
@@ -67,13 +44,3 @@ public class Bean extends RouteBuilder {
         return eventCompleteList;
     }
 }
-
-/*
-.choice()
-                    .when(body().isNull()).when(body().contains("[]"))
-                        .unmarshal().json(JsonLibrary.Jackson, EventComplete.class)
-                        .toD("{{randoli.url}}/${header.eventId}")
-                    .otherwise()
-                        .toD("{{randoli.url}}/${header.eventId}")
-                .endChoice()
- */

@@ -12,7 +12,12 @@ public class RestRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        restConfiguration().bindingMode(RestBindingMode.auto).host(HOST).port(PORT);
+        restConfiguration().bindingMode(RestBindingMode.auto).host(HOST).port(PORT)
+                .apiContextPath("/doc")
+                .apiProperty("api.title", "Event API")
+                .apiProperty("api.version", "1.0.0")
+                .apiProperty("cors", "true")
+        ;
 
         rest("/integration/event")
             .get()

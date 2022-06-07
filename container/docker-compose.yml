@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  wilbur-randoli:
+    image: wilbur-randoli:1
+    tty: true
+    depends_on:
+      - postgres-compose
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=postgres-compose
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=admin
+    networks:
+      - postgres-compose-network
+
+  postgres-compose:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "admin"
+    ports:
+      - "15432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - postgres-compose-network
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "wilbur@cloud.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres-compose
+    networks:
+      - postgres-compose-network
+
+
+networks:
+  postgres-compose-network:
+    driver: bridge

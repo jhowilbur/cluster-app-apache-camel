@@ -17,7 +17,6 @@ public class RandoliRestAggregatorRoute extends RouteBuilder  {
         from("direct:rest-get-all").routeId("rest-GET-all-events")
                 .removeHeaders("CamelHttp*")
                 .setHeader(Exchange.HTTP_METHOD, constant("GET"))
-                //.to("direct:decider")
                 .toD("{{randoli.url}}")
                 .unmarshal().json(JsonLibrary.Jackson, EventComplete[].class)
                 .log("${body}");
@@ -25,20 +24,9 @@ public class RandoliRestAggregatorRoute extends RouteBuilder  {
         from("direct:rest-get-eventId").routeId("rest-GET-eventId")
                 .removeHeaders("CamelHttp*")
                 .setHeader(Exchange.HTTP_METHOD, constant("GET"))
-                .unmarshal().json(JsonLibrary.Jackson, EventComplete.class)
                 .log("EventComplete Id: ${header.eventId}")
-                .toD("{{randoli.url}}/${header.eventId}");
-                /*
-                .choice()
-                    .when(header(Exchange.HTTP_RESPONSE_CODE).isEqualTo(HttpStatus.OK))
-                        .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(HttpStatus.OK)).endChoice()
-                    .when(header(Exchange.HTTP_RESPONSE_CODE).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR))
-                        .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(HttpStatus.INTERNAL_SERVER_ERROR)).setBody(constant("INTERNAL SERVER ERROR")).endChoice()
-                    .when(header(Exchange.HTTP_RESPONSE_CODE).isEqualTo(HttpStatus.NOT_FOUND))
-                        .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(HttpStatus.NOT_FOUND)).setBody(constant("NOT FOUND")).endChoice()
-                    .when(header(Exchange.HTTP_RESPONSE_CODE).isEqualTo(HttpStatus.BAD_REQUEST))
-                        .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(HttpStatus.BAD_REQUEST)).setBody(constant("BAD REQUEST")).endChoice();\
-                */
+                .toD("{{randoli.url}}/${header.eventId}")
+                .unmarshal().json(JsonLibrary.Jackson, EventComplete.class);
 
         from("direct:rest-delete-eventId").routeId("rest-DELETE-eventId")
                 .removeHeaders("CamelHttp*")
@@ -50,21 +38,17 @@ public class RandoliRestAggregatorRoute extends RouteBuilder  {
                 .removeHeaders("CamelHttp*")
                 .setHeader(Exchange.HTTP_METHOD, constant("POST"))
                 .marshal().json(JsonLibrary.Jackson, EventComplete.class)
-                .log("Header: ${body}")
+                .log("Body: ${body}")
                 .toD("{{randoli.url}}")
                 .unmarshal().json(JsonLibrary.Jackson, EventComplete.class);
 
         from("direct:rest-put-eventId").routeId("rest-PUT-eventId")
                 .removeHeaders("CamelHttp*")
                 .setHeader(Exchange.HTTP_METHOD, constant("PUT"))
+                .marshal().json(JsonLibrary.Jackson, EventComplete.class)
                 .log("EventComplete Id: ${header.eventId}")
-                .choice()
-                    .when(body().isNull())
-                        .unmarshal().json(JsonLibrary.Jackson, EventComplete.class)
-                        .toD("{{randoli.url}}/${header.eventId}")
-                    .otherwise()
-                        .toD("{{randoli.url}}/${header.eventId}")
-                .endChoice();
+                .toD("{{randoli.url}}/${header.eventId}")
+                .unmarshal().json(JsonLibrary.Jackson, EventComplete.class);
 
 
         // From challange Part 2
@@ -78,8 +62,8 @@ public class RandoliRestAggregatorRoute extends RouteBuilder  {
                 .log("Send Payload: ${body}")
                 .marshal().json(JsonLibrary.Jackson, EventComplete.class)
                 .toD("{{randoli.url}}")
-                .unmarshal().json(JsonLibrary.Jackson, EventComplete.class);
-        ;
+                .unmarshal().json(JsonLibrary.Jackson, EventComplete.class)
+                .log("Received Payload: ${body}");
     }
 
 }

@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "2a88fc97-9938-4302-8c5a-d9e0daf53b6b",
+		"name": "Randoli",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Randoli-API",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"transId\": \"0000abf8-d1f5-4536-8fb0-36fe934b1f28\",\n    \"transTms\": \"20151022102011927EDT\",\n    \"rcNum\": \"10002\",\n    \"clientId\": \"RPS-00001\",\n    \"eventCnt\": 1,\n    \"locationCd\": \"DESTINATION\",\n    \"locationId1\": \"T8C\",\n    \"locationId2\": \"1J7\",\n    \"addrNbr\": \"0000000001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/event",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ - all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/event",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ - by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/event/4c9bf64c-ff61-4563-9698-351c963a03bb",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"event",
+								"4c9bf64c-ff61-4563-9698-351c963a03bb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/event/0dcd09c5-fe20-4f3d-a931-b6583b562526",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"event",
+								"0dcd09c5-fe20-4f3d-a931-b6583b562526"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventId\": null,\n    \"transId\": \"0000abf8-d1f5-4536-8fb0-36fe934b1f28\",\n    \"transTms\": \"20151022102011927EDT\",\n    \"rcNum\": 2,\n    \"clientId\": \"RPS-00001\",\n    \"eventCnt\": 2,\n    \"locationCd\": \"DESTINATION\",\n    \"locationId1\": \"T8C\",\n    \"locationId2\": \"1J7\",\n    \"addrNbr\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/event/e3dca994-6341-4866-987b-47df1139067d",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"event",
+								"e3dca994-6341-4866-987b-47df1139067d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Apache-Camel-API",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"transId\": \"0000abf8-d1f5-4536-8fb0-36fe934b1f28\",\n    \"transTms\": \"20151022102011927EDT\",\n    \"rcNum\": \"10002\",\n    \"clientId\": \"RPS-00001\",\n    \"eventCnt\": 1,\n    \"locationCd\": \"DESTINATION\",\n    \"locationId1\": \"T8C\",\n    \"locationId2\": \"1J7\",\n    \"addrNbr\": \"0000000001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/integration/event",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"integration",
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ - all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/integration/event",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"integration",
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "READ - by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/integration/event/39e8d4ce-d1b3-4650-82e7-ed97697f9c14",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"integration",
+								"event",
+								"39e8d4ce-d1b3-4650-82e7-ed97697f9c14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/integration/event/39e8d4ce-d1b3-4650-82e7-ed97697f9c14",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"integration",
+								"event",
+								"39e8d4ce-d1b3-4650-82e7-ed97697f9c14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventId\": null,\n    \"transId\": \"0000abf8-d1f5-4536-8fb0-36fe934b1f28\",\n    \"transTms\": \"20151022102011927EDT\",\n    \"rcNum\": 2,\n    \"clientId\": \"RPS-00001\",\n    \"eventCnt\": 2,\n    \"locationCd\": \"DESTINATION\",\n    \"locationId1\": \"T8C\",\n    \"locationId2\": \"1J7\",\n    \"addrNbr\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/integration/event/732e7bee-23d4-4ae4-89b0-c6ead720fb38",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"integration",
+								"event",
+								"732e7bee-23d4-4ae4-89b0-c6ead720fb38"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE with Payload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"batchId\":\"0310abf6-d1f5-a1b3-8fb0-36fe934b1f28\",\n   \"records\":[\n      {\n         \"transId\":\"0000abf8-d1f5-4536-8fb0-36fe934b1f28\",\n         \"transTms\":\"20151022102011927EDT\",\n         \"rcNum\":\"10002\",\n         \"clientId\":\"RPS-00001\",\n         \"event\":[\n            {\n               \"eventCnt\":1,\n               \"locationCd\":\"DESTINATION\",\n               \"locationId1\":\"T8C\",\n               \"locationId2\":\"1J7\",\n               \"addrNbr\":\"0000000001\"\n            },\n            {\n               \"eventCnt\":2,\n               \"locationCd\":\"CUSTOMER NUMBER\",\n               \"locationId1\":\"0007316971\"\n            },\n            {\n               \"eventCnt\":3,\n               \"locationCd\":\"OUTLET ID\",\n               \"locationId1\":\"I029\"\n            }\n         ]\n      },\n      {\n         \"transId\":\"0000abf8-d1f5-4536-8fb0-36fe934b1f29\",\n         \"transTms\":\"20151022102011927EDT\",\n         \"rcNum\":\"10002\",\n         \"clientId\":\"RPS-00001\",\n         \"event\":[\n            {\n               \"eventCnt\":11,\n               \"locationCd\":\"DESTINATION\",\n               \"locationId1\":\"T8C\",\n               \"locationId2\":\"1J7\",\n               \"addrNbr\":\"0000000001\"\n            },\n            {\n               \"eventCnt\":12,\n               \"locationCd\":\"CUSTOMER NUMBER\",\n               \"locationId1\":\"0007316971\"\n            },\n            {\n               \"eventCnt\":13,\n               \"locationCd\":\"OUTLET ID\",\n               \"locationId1\":\"I029\"\n            }\n         ]\n      },\n      {\n         \"transId\":\"0000abf8-d1f5-4536-8fb0-36fe934b1f30\",\n         \"transTms\":\"20151022102011927EDT\",\n         \"rcNum\":\"10002\",\n         \"clientId\":\"RPS-00001\",\n         \"event\":[\n            {\n               \"eventCnt\":21,\n               \"locationCd\":\"DESTINATION\",\n               \"locationId1\":\"T8C\",\n               \"locationId2\":\"1J7\",\n               \"addrNbr\":\"0000000001\"\n            },\n            {\n               \"eventCnt\":22,\n               \"locationCd\":\"CUSTOMER NUMBER\",\n               \"locationId1\":\"0007316971\"\n            },\n            {\n               \"eventCnt\":23,\n               \"locationCd\":\"OUTLET ID\",\n               \"locationId1\":\"I029\"\n            }\n         ]\n      }\n   ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/integration/event/payload",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"integration",
+								"event",
+								"payload"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
