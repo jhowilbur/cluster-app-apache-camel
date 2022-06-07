@@ -9,8 +9,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Event {
-
+public class EventComplete {
     private UUID eventId;
     private UUID transId;
     private String transTms;
@@ -21,5 +20,4 @@ public class Event {
     private String locationId1;
     private String locationId2;
     private Integer addrNbr;
-    
 }
