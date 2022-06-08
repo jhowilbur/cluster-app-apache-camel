@@ -1,24 +1,36 @@
 package cloud.wilbur.apachecamel.routes;
 
-import cloud.wilbur.apachecamel.domain.EventComplete;
-import cloud.wilbur.apachecamel.domain.payload.Payload;
-import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RestRoute extends RouteBuilder {
 
     private final String HOST = "localhost";
-    private final int PORT = 8082;
+    private final String PORT = "8082";
+
+    @Autowired
+    private Environment env;
 
     @Override
     public void configure() throws Exception {
-        restConfiguration().bindingMode(RestBindingMode.auto).host(HOST).port(PORT);
 
-        rest("/integration/event")
+        restConfiguration()
+                .component("servlet")
+                .host(HOST)
+                .contextPath("/integration")
+                .apiContextPath("/api-doc")
+                .apiProperty("api.title", "REST API for processing Order")
+                .apiProperty("api.version", "1.0")
+                .apiProperty("cors", "true")
+                .apiContextRouteId("doc-api")
+                .port(env.getProperty("server.port", PORT))
+                .bindingMode(RestBindingMode.auto);
+
+        rest("/event")
             .get()
                 .route().routeId("route-GET-all-events")
                 .to("direct:rest-get-all")

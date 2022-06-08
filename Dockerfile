@@ -2,10 +2,10 @@ FROM openjdk:11-jdk-slim
 
 MAINTAINER Wilbur
 
-ARG  DB_HOST="localhost"
+ARG  APP_HOST="localhost"
 ARG  ENV_APP=""
 
-ENV  DB_HOST $DB_HOST
+ENV  APP_HOST $APP_HOST
 ENV  ENV_APP $ENV_APP
 
 ARG JAR_FILE=target/*.jar

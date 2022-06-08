@@ -58,6 +58,7 @@ public class RandoliRestAggregatorRoute extends RouteBuilder  {
                     .unmarshal().json(JsonLibrary.Jackson, Payload.class)
                 .to("direct:clean-payload")
                     .split(body())
+                    .parallelProcessing()
                 .log("Send Payload: ${body}")
                     .marshal().json(JsonLibrary.Jackson, EventComplete.class)
                 .toD("{{randoli.url}}")
