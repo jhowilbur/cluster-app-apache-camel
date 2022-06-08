@@ -18,8 +18,7 @@ public class RandoliRestAggregatorRoute extends RouteBuilder  {
                 .removeHeaders("CamelHttp*")
                 .setHeader(Exchange.HTTP_METHOD, constant("GET"))
                 .toD("{{randoli.url}}")
-                .unmarshal().json(JsonLibrary.Jackson, EventComplete[].class)
-                .log("${body}");
+                .unmarshal().json(JsonLibrary.Jackson, EventComplete[].class);
 
         from("direct:rest-get-eventId").routeId("rest-GET-eventId")
                 .removeHeaders("CamelHttp*")
@@ -31,7 +30,7 @@ public class RandoliRestAggregatorRoute extends RouteBuilder  {
         from("direct:rest-delete-eventId").routeId("rest-DELETE-eventId")
                 .removeHeaders("CamelHttp*")
                 .setHeader(Exchange.HTTP_METHOD, constant("DELETE"))
-                .log("EventComplete Id: ${header.eventId}")
+                .log("Event Id: ${header.eventId}")
                 .toD("{{randoli.url}}/${header.eventId}");
 
         from("direct:rest-post-eventId").routeId("rest-POST-eventId")
@@ -55,14 +54,14 @@ public class RandoliRestAggregatorRoute extends RouteBuilder  {
         from("direct:rest-post-payload").routeId("rest-POST-payload")
                 .removeHeaders("CamelHttp*")
                 .setHeader(Exchange.HTTP_METHOD, constant("POST"))
-                .marshal().json(JsonLibrary.Jackson, Payload.class)
-                .unmarshal().json(JsonLibrary.Jackson, Payload.class)
+                    .marshal().json(JsonLibrary.Jackson, Payload.class)
+                    .unmarshal().json(JsonLibrary.Jackson, Payload.class)
                 .to("direct:clean-payload")
-                .split(body())
+                    .split(body())
                 .log("Send Payload: ${body}")
-                .marshal().json(JsonLibrary.Jackson, EventComplete.class)
+                    .marshal().json(JsonLibrary.Jackson, EventComplete.class)
                 .toD("{{randoli.url}}")
-                .unmarshal().json(JsonLibrary.Jackson, EventComplete.class)
+                    .unmarshal().json(JsonLibrary.Jackson, EventComplete.class)
                 .log("Received Payload: ${body}");
     }
 

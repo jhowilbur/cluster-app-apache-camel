@@ -1,6 +1,10 @@
 package cloud.wilbur.apachecamel.routes;
 
+import cloud.wilbur.apachecamel.domain.EventComplete;
+import cloud.wilbur.apachecamel.domain.payload.Payload;
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +16,7 @@ public class RestRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        restConfiguration().bindingMode(RestBindingMode.auto).host(HOST).port(PORT)
-                .apiContextPath("/doc")
-                .apiProperty("api.title", "Event API")
-                .apiProperty("api.version", "1.0.0")
-                .apiProperty("cors", "true")
-        ;
+        restConfiguration().bindingMode(RestBindingMode.auto).host(HOST).port(PORT);
 
         rest("/integration/event")
             .get()

@@ -16,8 +16,7 @@ public class Bean extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:clean-payload").routeId("clean-payload")
-                .bean(this, "cleanPayload")
-                .to("direct:decider");
+                .bean(this, "cleanPayload");
     }
 
     public ArrayList<EventComplete> cleanPayload(@Body Payload payload) {
