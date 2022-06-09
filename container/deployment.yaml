@@ -1,0 +1,70 @@
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wilbur-camel-server
+  namespace: wilbur-randoli-namespace
+  labels:
+    app: camelapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: camelapi
+  template:
+    metadata:
+      labels:
+        app: camelapi
+    spec:
+      #imagePullSecrets: # pipeline
+      #  - name: pipeline-docker-registry # pipeline
+      containers:
+        - name: camelapi
+          #image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE} # pipeline
+          image: xwilburdev/camelapi:2
+          dnsPolicy: "None"
+          dnsConfig:
+            nameservers:
+              - 54.196.113.246
+            searches:
+              - app.randoli.wilbur.cloud
+          ports:
+            - containerPort: 8082
+          env:
+            - name: APP_HOST
+              value: app.randoli.wilbur.cloud
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: wilbur-camel-service
+  namespace: wilbur-randoli-namespace
+spec:
+  selector:
+    app: camelapi
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8082
+
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: wilbur-randoli-namespace
+  name: wilbur-camel-ingress
+  annotations:
+    allow.http: "true"
+spec:
+  rules:
+    - host: camel.randoli.wilbur.cloud
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: wilbur-camel-service
+              servicePort: 8082

@@ -9,8 +9,23 @@ A REST API using with Enterprise Integration Patterns with `Apache Camel` to per
 application with `Spring Boot, Hibernate, PostgreSQL, Container and Cloud Concepts` to save Events.
 
 You can find details how run application below, and how to use the API, inside project exists a file 
-`Randoli.postman_collection.json` or [Camel API DOC](http://camel.wilbur.cloud/integration/api-doc) 
+`Randoli.postman_collection.json` or [Camel API DOC](http://camel.randoli.wilbur.cloud/integration/api-doc) 
 with more details about request.
+
+### Access APP
+To access the application you need to use the following URL:
+- [AWS/EC2 with K8S - http://camel.wilbur.cloud](http://camel.randoli.wilbur.cloud)
+- [Camel API DOC](http://camel.randoli.wilbur.cloud/integration/api-doc)
+
+Actually exists two EC2 instances in the AWS with this application:
+
+One master instance and one slave instance.
+
+The master contains Rancher to manipulate others VMs.
+- [RANCHER AWS/EC2 - https://rancher.wilbur.cloud](https://rancher.wilbur.cloud)
+
+Example above, but with one master and 3 slaves (in our case we just have one slave to reduce cost)
+![image](https://user-images.githubusercontent.com/59379254/172294538-3c54c247-a40f-4037-bb61-1d48a990dc60.png)
 
 ### Architecture
 
@@ -55,21 +70,6 @@ To save this without change Client API I used the SPLIT pattern.
     ...
 ]}
 ```
-
-To access the application you need to use the following URL:
-- [AWS/EC2 with K8S - http://camel.wilbur.cloud](http://camel.wilbur.cloud)
-- [Camel API DOC](http://camel.wilbur.cloud/integration/api-doc)
-
-
-Actually exists two EC2 instances in the AWS with this application:
-
-One master instance and one slave instance.
-
-The master contains Rancher to manipulate others VMs.
-- [RANCHER AWS/EC2 - https://rancher.wilbur.cloud](https://rancher.wilbur.cloud)
-
-Example above, but with one master and 3 slaves (in our case we just have one slave to reduce cost)
-![image](https://user-images.githubusercontent.com/59379254/172294538-3c54c247-a40f-4037-bb61-1d48a990dc60.png)
 
 -----------------------------------------------------------------
 
@@ -131,6 +131,24 @@ docker-compose up
 - after start application to analyze REST API with API DOC
 ```
 http://localhost:8082/integration/api-doc
+```
+
+-----------------------------------------------------------------
+
+# To send image to repository (in this case Docker Hub)
+
+- build and tag image
+```
+docker build -t wilbur-camel:1 .
+docker tag wilbur-camel:1 xwilburdev/camelapi:1
+```
+- login to Docker Hub
+```
+docker login --username=<username>
+```
+- push image to Docker Hub
+```
+docker push xwilburdev/camelapi:1
 ```
 
 -----------------------------------------------------------------
